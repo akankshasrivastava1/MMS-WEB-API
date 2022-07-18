@@ -50,7 +50,7 @@ namespace MMS.Controllers
 
         }
         [HttpPut("update_movies")]
-        public IActionResult UpdateEmployee([FromBody] Movies moviesObj)
+        public IActionResult UpdateMovies([FromBody] Movies moviesObj)
         {
             if (moviesObj == null)
             {
@@ -109,7 +109,7 @@ namespace MMS.Controllers
                 MoviesDetails = movies
             });
         }
-        [HttpGet("get_movies/id")]
+        [HttpGet("get_movies")]
         public IActionResult Getmovies(int id)
         {
             var movies = _context.movies.Find(id);
@@ -130,5 +130,6 @@ namespace MMS.Controllers
                 });
             }
         }
+
     }
 }

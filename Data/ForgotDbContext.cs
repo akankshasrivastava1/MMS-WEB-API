@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace MMS.Data
 {
-    public class UserDbContext : DbContext
+    public class ForgotDbContext : DbContext
     {
-        public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
+        public ForgotDbContext(DbContextOptions<ForgotDbContext> options) : base(options)
         {
 
         }
-        public DbSet<User> user { get; set; }
         public DbSet<Forgot> forgot { get; set; }
-       
     }
 }

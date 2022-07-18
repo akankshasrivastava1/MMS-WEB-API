@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MMS.Migrations
 {
     [DbContext(typeof(MoviesDbConnect))]
-    [Migration("20220623165845_MoviesDbContext")]
-    partial class MoviesDbContext
+    [Migration("20220718161623_movies")]
+    partial class movies
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,14 +18,19 @@ namespace MMS.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("MMS.Models.Movies", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Genre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Language")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LeadActor")

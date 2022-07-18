@@ -61,3 +61,7 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+services.AddDbContext<MoviesDbConnect>(options => options.UseSqlServer(Configuration.GetConnectionString("Myconnection")));
+services.AddDbContext<ForgotDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ForgotConnection")));

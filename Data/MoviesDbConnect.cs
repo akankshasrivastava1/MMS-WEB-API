@@ -14,5 +14,6 @@ namespace MMS.Data
 
         }
         public DbSet<Movies> movies { get; set; }
+        public object Movies { get; internal set; }
     }
 }

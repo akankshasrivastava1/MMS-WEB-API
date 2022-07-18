@@ -21,7 +21,7 @@ namespace MMS.Controllers
         {
             _context = userDbContext;
         }
-        [HttpGet("users")]
+        [HttpGet("user")]
         public IActionResult GetUsers()
         {
             var userdetails = _context.user.AsQueryable();
@@ -36,6 +36,8 @@ namespace MMS.Controllers
             }
             else
             {
+                var user = _context.user.Where(a => a.UserName == userObj.UserName).FirstOrDefault();
+
                 userObj.Password = EncDscPassword.EncryptPassword(userObj.Password);
                 _context.user.Add(userObj);
                 _context.SaveChanges();
@@ -78,5 +80,27 @@ namespace MMS.Controllers
                 }
             }
         }
-    }
+
+            // api/auth/resetpassword
+            [HttpPost("forgot")]
+            public IActionResult Forgot([FromBody] Forgot forgotObj)
+            {
+                if (ModelState.IsValid)
+                {
+                    var forgot =  _context.forgot.Where(a => a.UserName == forgotObj.UserName).FirstOrDefault();
+
+                    if (forgot != null && EncDscPassword.DecryptPassword(forgot.Password) == forgotObj.Password)
+                    return Ok(new
+                    {
+                        StatusCode = 200,
+                        Message = "Recovered Successfully",
+                    });
+
+                    return BadRequest(forgot);
+                }
+
+                return BadRequest("Some properties are not valid");
+            }
+
+        }
 }
